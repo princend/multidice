@@ -15,6 +15,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
   SpringSimulation simulation;
   int num = 1;
   int num2 = 1;
+  int num3 = 1;
   ZVector rotation = ZVector.zero;
   double zRotation = 0;
 
@@ -45,6 +46,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
     zRotation = Random().nextDouble() * tau;
     num = Random().nextInt(5) + 1;
     num2 = 6 - Random().nextInt(5);
+    num3 = Random().nextInt(5) + 1;
   }
 
   @override
@@ -79,7 +81,28 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
           zoom: 1.5,
           children: [
             ZPositioned(
-              translate: ZVector.only(x: 100 * zoom),
+              translate: ZVector.only(x: 0 * zoom, y: 200 * zoom),
+              child: ZGroup(
+                children: [
+                  ZPositioned(
+                    scale: ZVector.all(zoom),
+                    rotate:
+                        getRotation(num3).multiplyScalar(curvedValue.value) -
+                            ZVector.all((tau / 2) * (firstHalf.value)) -
+                            ZVector.all((tau / 2) * (secondHalf.value)),
+                    child: ZPositioned(
+                        rotate: ZVector.only(
+                            z: -zRotation * 1.9 * (animationController.value)),
+                        child: Dice(
+                          zoom: zoom,
+                          color: Colors.green,
+                        )),
+                  ),
+                ],
+              ),
+            ),
+            ZPositioned(
+              translate: ZVector.only(x: 200 * zoom),
               child: ZGroup(
                 children: [
                   ZPositioned(
@@ -100,7 +123,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
               ),
             ),
             ZPositioned(
-              translate: ZVector.only(x: -100 * zoom),
+              translate: ZVector.only(x: 0 * zoom),
               child: ZGroup(
                 children: [
                   ZPositioned(
