@@ -6,6 +6,20 @@ import 'package:flutter/physics.dart';
 import 'package:zflutter/zflutter.dart';
 
 class Dices extends StatefulWidget {
+  int amount = 1;
+  int num = Random().nextInt(5) + 1;
+  int num2 = Random().nextInt(5) + 1;
+  int num3 = Random().nextInt(5) + 1;
+  double zRotation = Random().nextDouble() * tau;
+
+  random() {
+    zRotation = Random().nextDouble() * tau;
+    num = Random().nextInt(5) + 1;
+    num2 = 6 - Random().nextInt(5);
+    num3 = Random().nextInt(5) + 1;
+  }
+
+  Dices({Key key, this.amount}) : super(key: key);
   _DicesState createState() => _DicesState();
 }
 
@@ -13,11 +27,8 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
   AnimationController animationController;
 
   SpringSimulation simulation;
-  int num = 1;
-  int num2 = 1;
-  int num3 = 1;
+
   ZVector rotation = ZVector.zero;
-  double zRotation = 0;
 
   @override
   void initState() {
@@ -42,12 +53,12 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
           });
   }
 
-  void random() {
-    zRotation = Random().nextDouble() * tau;
-    num = Random().nextInt(5) + 1;
-    num2 = 6 - Random().nextInt(5);
-    num3 = Random().nextInt(5) + 1;
-  }
+  // void random() {
+  //   zRotation = Random().nextDouble() * tau;
+  //   num = Random().nextInt(5) + 1;
+  //   num2 = 6 - Random().nextInt(5);
+  //   num3 = Random().nextInt(5) + 1;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +83,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
           animationController.reset();
         else {
           animationController.forward(from: 0);
-          random();
+          widget.random();
         }
       },
       child: Container(
@@ -86,13 +97,15 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate:
-                        getRotation(num3).multiplyScalar(curvedValue.value) -
-                            ZVector.all((tau / 2) * (firstHalf.value)) -
-                            ZVector.all((tau / 2) * (secondHalf.value)),
+                    rotate: getRotation(widget.num3)
+                            .multiplyScalar(curvedValue.value) -
+                        ZVector.all((tau / 2) * (firstHalf.value)) -
+                        ZVector.all((tau / 2) * (secondHalf.value)),
                     child: ZPositioned(
                         rotate: ZVector.only(
-                            z: -zRotation * 1.9 * (animationController.value)),
+                            z: -widget.zRotation *
+                                1.9 *
+                                (animationController.value)),
                         child: Dice(
                           zoom: zoom,
                           color: Colors.green,
@@ -107,13 +120,15 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate:
-                        getRotation(num2).multiplyScalar(curvedValue.value) -
-                            ZVector.all((tau / 2) * (firstHalf.value)) -
-                            ZVector.all((tau / 2) * (secondHalf.value)),
+                    rotate: getRotation(widget.num2)
+                            .multiplyScalar(curvedValue.value) -
+                        ZVector.all((tau / 2) * (firstHalf.value)) -
+                        ZVector.all((tau / 2) * (secondHalf.value)),
                     child: ZPositioned(
                         rotate: ZVector.only(
-                            z: -zRotation * 1.9 * (animationController.value)),
+                            z: -widget.zRotation *
+                                1.9 *
+                                (animationController.value)),
                         child: Dice(
                           zoom: zoom,
                           color: Colors.green,
@@ -128,12 +143,15 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate: getRotation(num).multiplyScalar(curvedValue.value) -
+                    rotate: getRotation(widget.num)
+                            .multiplyScalar(curvedValue.value) -
                         ZVector.all((tau / 2) * (firstHalf.value)) -
                         ZVector.all((tau / 2) * (secondHalf.value)),
                     child: ZPositioned(
                         rotate: ZVector.only(
-                            z: -zRotation * 2.1 * (animationController.value)),
+                            z: -widget.zRotation *
+                                2.1 *
+                                (animationController.value)),
                         child: Dice(zoom: zoom)),
                   ),
                 ],
