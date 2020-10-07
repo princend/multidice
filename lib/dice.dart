@@ -7,19 +7,29 @@ import 'package:zflutter/zflutter.dart';
 
 class Dices extends StatefulWidget {
   int amount = 1;
-  int num = Random().nextInt(5) + 1;
-  int num2 = Random().nextInt(5) + 1;
-  int num3 = Random().nextInt(5) + 1;
-  double zRotation = Random().nextDouble() * tau;
+  // int num = Random().nextInt(5) + 1;
+  // int num2 = Random().nextInt(5) + 1;
+  // int num3 = Random().nextInt(5) + 1;
 
-  random() {
+  double zRotation = Random().nextDouble() * tau;
+  Dices({Key key, this.amount}) : super(key: key);
+  // for (var i = 0; i < 3; i++)  {
+
+  // }
+
+  List numArr = [1, 2, 2, 4];
+  void random() {
     zRotation = Random().nextDouble() * tau;
-    num = Random().nextInt(5) + 1;
-    num2 = 6 - Random().nextInt(5);
-    num3 = Random().nextInt(5) + 1;
+    // num = Random().nextInt(5) + 1;
+    // num2 = 6 - Random().nextInt(5);
+    // num3 = Random().nextInt(5) + 1;
+    this.numArr.clear();
+    for (var i = 0; i < amount; i++) {
+      int numRam = Random().nextInt(5) + 1;
+      this.numArr.add(numRam);
+    }
   }
 
-  Dices({Key key, this.amount}) : super(key: key);
   _DicesState createState() => _DicesState();
 }
 
@@ -97,7 +107,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.num3)
+                    rotate: getRotation(widget.numArr[0])
                             .multiplyScalar(curvedValue.value) -
                         ZVector.all((tau / 2) * (firstHalf.value)) -
                         ZVector.all((tau / 2) * (secondHalf.value)),
@@ -120,7 +130,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.num2)
+                    rotate: getRotation(widget.numArr[1])
                             .multiplyScalar(curvedValue.value) -
                         ZVector.all((tau / 2) * (firstHalf.value)) -
                         ZVector.all((tau / 2) * (secondHalf.value)),
@@ -143,7 +153,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
                 children: [
                   ZPositioned(
                     scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.num)
+                    rotate: getRotation(widget.numArr[2])
                             .multiplyScalar(curvedValue.value) -
                         ZVector.all((tau / 2) * (firstHalf.value)) -
                         ZVector.all((tau / 2) * (secondHalf.value)),

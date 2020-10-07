@@ -69,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
       body: GridView.builder(
         itemBuilder: (context, index) {
-          return Dices();
+          return Dices(
+            amount: 4,
+          );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
