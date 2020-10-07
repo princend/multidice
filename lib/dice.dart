@@ -7,22 +7,12 @@ import 'package:zflutter/zflutter.dart';
 
 class Dices extends StatefulWidget {
   int amount = 1;
-  // int num = Random().nextInt(5) + 1;
-  // int num2 = Random().nextInt(5) + 1;
-  // int num3 = Random().nextInt(5) + 1;
-
   double zRotation = Random().nextDouble() * tau;
   Dices({Key key, this.amount}) : super(key: key);
-  // for (var i = 0; i < 3; i++)  {
-
-  // }
-
   List numArr = [1, 2, 2, 4];
   void random() {
     zRotation = Random().nextDouble() * tau;
-    // num = Random().nextInt(5) + 1;
-    // num2 = 6 - Random().nextInt(5);
-    // num3 = Random().nextInt(5) + 1;
+
     this.numArr.clear();
     for (var i = 0; i < amount; i++) {
       int numRam = Random().nextInt(5) + 1;
@@ -87,6 +77,70 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
 
     final zoom = (simulation.x(animationController.value)).abs() / 2 + 0.5;
 
+    List diceList = <Widget>[
+      ZPositioned(
+          translate: ZVector.only(x: 0 * zoom, y: 200 * zoom),
+          child: ZGroup(
+            children: [
+              ZPositioned(
+                scale: ZVector.all(zoom),
+                rotate: getRotation(widget.numArr[0])
+                        .multiplyScalar(curvedValue.value) -
+                    ZVector.all((tau / 2) * (firstHalf.value)) -
+                    ZVector.all((tau / 2) * (secondHalf.value)),
+                child: ZPositioned(
+                    rotate: ZVector.only(
+                        z: -widget.zRotation *
+                            1.9 *
+                            (animationController.value)),
+                    child: Dice(
+                      zoom: zoom,
+                      color: Colors.green,
+                    )),
+              ),
+            ],
+          )),
+      ZPositioned(
+        translate: ZVector.only(x: 200 * zoom),
+        child: ZGroup(
+          children: [
+            ZPositioned(
+              scale: ZVector.all(zoom),
+              rotate: getRotation(widget.numArr[1])
+                      .multiplyScalar(curvedValue.value) -
+                  ZVector.all((tau / 2) * (firstHalf.value)) -
+                  ZVector.all((tau / 2) * (secondHalf.value)),
+              child: ZPositioned(
+                  rotate: ZVector.only(
+                      z: -widget.zRotation * 1.9 * (animationController.value)),
+                  child: Dice(
+                    zoom: zoom,
+                    color: Colors.green,
+                  )),
+            ),
+          ],
+        ),
+      ),
+      ZPositioned(
+        translate: ZVector.only(x: 0 * zoom),
+        child: ZGroup(
+          children: [
+            ZPositioned(
+              scale: ZVector.all(zoom),
+              rotate: getRotation(widget.numArr[2])
+                      .multiplyScalar(curvedValue.value) -
+                  ZVector.all((tau / 2) * (firstHalf.value)) -
+                  ZVector.all((tau / 2) * (secondHalf.value)),
+              child: ZPositioned(
+                  rotate: ZVector.only(
+                      z: -widget.zRotation * 2.1 * (animationController.value)),
+                  child: Dice(zoom: zoom)),
+            ),
+          ],
+        ),
+      ),
+    ];
+
     return GestureDetector(
       onTap: () {
         if (animationController.isAnimating)
@@ -100,74 +154,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
         color: Colors.transparent,
         child: ZIllustration(
           zoom: 1.5,
-          children: [
-            ZPositioned(
-              translate: ZVector.only(x: 0 * zoom, y: 200 * zoom),
-              child: ZGroup(
-                children: [
-                  ZPositioned(
-                    scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.numArr[0])
-                            .multiplyScalar(curvedValue.value) -
-                        ZVector.all((tau / 2) * (firstHalf.value)) -
-                        ZVector.all((tau / 2) * (secondHalf.value)),
-                    child: ZPositioned(
-                        rotate: ZVector.only(
-                            z: -widget.zRotation *
-                                1.9 *
-                                (animationController.value)),
-                        child: Dice(
-                          zoom: zoom,
-                          color: Colors.green,
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            ZPositioned(
-              translate: ZVector.only(x: 200 * zoom),
-              child: ZGroup(
-                children: [
-                  ZPositioned(
-                    scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.numArr[1])
-                            .multiplyScalar(curvedValue.value) -
-                        ZVector.all((tau / 2) * (firstHalf.value)) -
-                        ZVector.all((tau / 2) * (secondHalf.value)),
-                    child: ZPositioned(
-                        rotate: ZVector.only(
-                            z: -widget.zRotation *
-                                1.9 *
-                                (animationController.value)),
-                        child: Dice(
-                          zoom: zoom,
-                          color: Colors.green,
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            ZPositioned(
-              translate: ZVector.only(x: 0 * zoom),
-              child: ZGroup(
-                children: [
-                  ZPositioned(
-                    scale: ZVector.all(zoom),
-                    rotate: getRotation(widget.numArr[2])
-                            .multiplyScalar(curvedValue.value) -
-                        ZVector.all((tau / 2) * (firstHalf.value)) -
-                        ZVector.all((tau / 2) * (secondHalf.value)),
-                    child: ZPositioned(
-                        rotate: ZVector.only(
-                            z: -widget.zRotation *
-                                2.1 *
-                                (animationController.value)),
-                        child: Dice(zoom: zoom)),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          children: diceList,
         ),
       ),
     );
