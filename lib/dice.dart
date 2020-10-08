@@ -84,7 +84,6 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
           }
         },
         child: Container(
-          margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
           color: Colors.transparent,
           child: ZIllustration(
             zoom: 1.2,
