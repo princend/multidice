@@ -86,7 +86,7 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
         child: Container(
           color: Colors.transparent,
           child: ZIllustration(
-            zoom: 1.2,
+            zoom: 1.0,
             children: diceList,
           ),
         ));
@@ -98,9 +98,9 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
 
     List position = [
       ZVector.only(x: zoom * 0, y: zoom * 0),
-      ZVector.only(x: zoom * 200, y: zoom * 0),
-      ZVector.only(x: zoom * 0, y: zoom * 200),
-      ZVector.only(x: zoom * 200, y: zoom * 200)
+      ZVector.only(x: zoom * 125, y: zoom * 0),
+      ZVector.only(x: zoom * 0, y: zoom * 125),
+      ZVector.only(x: zoom * 125, y: zoom * 125)
     ];
 
     List colorsArr = [
