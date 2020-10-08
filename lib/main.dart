@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          margin: EdgeInsets.only(top: 50.0, left: 220.0),
+          margin: EdgeInsets.only(top: 50.0),
           child: GridView.builder(
             itemBuilder: (context, index) {
               return Dices(
