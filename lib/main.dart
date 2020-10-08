@@ -53,37 +53,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int diceAmount = 1;
 
-  void _incrementCounter() {
+  void _incrementCounter(value) {
     setState(() {
-      _counter++;
+      if (value == 0 && diceAmount > 1) {
+        diceAmount -= 1;
+      } else if (value == 1 && diceAmount < 4) {
+        diceAmount += 1;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
-      body: GridView.builder(
-        itemBuilder: (context, index) {
-          return Dices(
-            amount: 4,
-          );
+      body: Container(
+          margin: EdgeInsets.only(top: 50.0, left: 220.0),
+          child: GridView.builder(
+            itemBuilder: (context, index) {
+              return Dices(
+                amount: this.diceAmount,
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
+              childAspectRatio: 1,
+            ),
+            itemCount: 1,
+          )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.exposure_minus_1), label: '減一顆'),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.exposure_plus_1), label: '加一顆')
+        ],
+        onTap: (value) {
+          _incrementCounter(value);
         },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
-          childAspectRatio: 1,
-        ),
-        itemCount: 1,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

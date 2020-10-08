@@ -75,22 +75,22 @@ class _DicesState extends State<Dices> with SingleTickerProviderStateMixin {
     List diceList = list;
 
     return GestureDetector(
-      onTap: () {
-        if (animationController.isAnimating)
-          animationController.reset();
-        else {
-          animationController.forward(from: 0);
-          widget.random();
-        }
-      },
-      child: Container(
-        color: Colors.transparent,
-        child: ZIllustration(
-          zoom: 1.5,
-          children: diceList,
-        ),
-      ),
-    );
+        onTap: () {
+          if (animationController.isAnimating)
+            animationController.reset();
+          else {
+            animationController.forward(from: 0);
+            widget.random();
+          }
+        },
+        child: Container(
+          margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
+          color: Colors.transparent,
+          child: ZIllustration(
+            zoom: 1.2,
+            children: diceList,
+          ),
+        ));
   }
 
   List<Widget> getDice(double zoom, CurvedAnimation curvedValue,
