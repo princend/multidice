@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.multidice">
    <application
-        android:label="multidice"
+        android:label="擲骰子"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
